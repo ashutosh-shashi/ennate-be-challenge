@@ -22,7 +22,7 @@ public class MetricResource {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
 	public void createMetric(@RequestBody SensorData sensorData) {
-		if(sensorData.getWeight()>150) {
+		if(sensorData.getWeight()>150 || sensorData.getWeight()<100) {
 			sensorData.setAlert(true);
 		}else {
 			sensorData.setAlert(false);
