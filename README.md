@@ -6,10 +6,8 @@
 #### BODY:
 
 {
-  "personId": 3,
-  "weight": 180,
-  "name": "Test3",
-  "recordTime": "2017-04-15 17:04:42.896026"
+  "timeStamp": "1458062848734", 
+  "value": "153"
 }
 
 ### Reads all the metrics:
@@ -18,7 +16,7 @@
 
 ### reads all the metrics that were created between the given two timestamps:
 
-#### GET http://localhost:8080/egencodechallange/matric/readByTimeRange?startTime="yyyy-MM-dd HH:mm:ss.SSS", endTime="yyyy-MM-dd HH:mm:ss.SSS"
+#### GET http://localhost:8080/egencodechallange/matric/readByTimeRange?startTime="TimeInMillis", endTime="TimeInMillis"
 
 ### reads all alerts:
 
@@ -26,7 +24,6 @@
 
 ### reads all alerts that are created between the given two timestamps:
 
-#### GET http://localhost:8080/egencodechallange/alert/readByTimeRange?startTime="yyyy-MM-dd HH:mm:ss.SSS", endTime="yyyy-MM-dd HH:mm:ss.SSS"
+#### GET http://localhost:8080/egencodechallange/alert/readByTimeRange?startTime="TimeInMillis", endTime="TimeInMillis"
 
-### Considering person having weight more than 150 or less than 100 is creating overweight/underweight alert
 

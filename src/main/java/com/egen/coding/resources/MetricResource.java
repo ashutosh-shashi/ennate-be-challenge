@@ -1,6 +1,6 @@
 package com.egen.coding.resources;
 
-import java.sql.Timestamp;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 
 import org.mongodb.morphia.Datastore;
@@ -22,7 +22,8 @@ public class MetricResource {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
 	public void createMetric(@RequestBody SensorData sensorData) {
-		if(sensorData.getWeight()>150 || sensorData.getWeight()<100) {
+		IntSummaryStatistics stats = datastore.createQuery(SensorData.class).asList().stream().mapToInt(value -> value.getValue()).summaryStatistics();
+		if(sensorData.getValue()>stats.getAverage()*1.10 || sensorData.getValue()<stats.getAverage()*0.90) {
 			sensorData.setAlert(true);
 		}else {
 			sensorData.setAlert(false);
@@ -36,10 +37,10 @@ public class MetricResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/readByTimeRange")
-	public List<SensorData> readMetricByTimeRange(@RequestParam("startTime")Timestamp startTime,
-			@RequestParam("endTime")Timestamp endTime) {
-		return datastore.createQuery(SensorData.class).field("recordTime").lessThan(endTime)
-													.field("recordTime").greaterThan(startTime).asList();
+	public List<SensorData> readMetricByTimeRange(@RequestParam("startTime")Long startTime,
+			@RequestParam("endTime")Long endTime) {
+		return datastore.createQuery(SensorData.class).field("timeStamp").lessThan(endTime)
+													.field("timeStamp").greaterThan(startTime).asList();
 	}
 
 }

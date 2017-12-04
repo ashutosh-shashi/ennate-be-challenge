@@ -1,11 +1,9 @@
 package com.egen.coding.resources;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +24,10 @@ public class AlertsResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/readByTimeRange")
-	public List<SensorData> readAlertByTimeRange(@RequestParam("startTime")Timestamp startTime,
-			@RequestParam("endTime")Timestamp endTime) {
-		return datastore.createQuery(SensorData.class).field("alert").equal(true).field("recordTime").lessThan(endTime)
-													.field("recordTime").greaterThan(startTime).asList();
+	public List<SensorData> readAlertByTimeRange(@RequestParam("startTime")Long startTime,
+			@RequestParam("endTime")Long endTime) {
+		return datastore.createQuery(SensorData.class).field("alert").equal(true).field("timeStamp").lessThan(endTime)
+													.field("timeStamp").greaterThan(startTime).asList();
 	}
 
 }
