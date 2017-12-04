@@ -1,0 +1,9 @@
+
+server:
+  port: 8081
+  context-path: /egencodechallange
+
+spring:
+  data:
+    mongodb:
+      database: egen
