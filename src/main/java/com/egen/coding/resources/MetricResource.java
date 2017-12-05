@@ -22,9 +22,14 @@ public class MetricResource {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
 	public void createMetric(@RequestBody SensorData sensorData) {
-		IntSummaryStatistics stats = datastore.createQuery(SensorData.class).asList().stream().mapToInt(value -> value.getValue()).summaryStatistics();
-		if(sensorData.getValue()>stats.getAverage()*1.10 || sensorData.getValue()<stats.getAverage()*0.90) {
-			sensorData.setAlert(true);
+		List<SensorData> sensorDataList= datastore.createQuery(SensorData.class).asList();
+		if(sensorDataList!=null && sensorDataList.size()>=2) {
+			IntSummaryStatistics stats = sensorDataList.stream().mapToInt(value -> value.getValue()).summaryStatistics();
+			if(sensorData.getValue()>stats.getAverage()*1.10 || sensorData.getValue()<stats.getAverage()*0.90) {
+				sensorData.setAlert(true);
+			}else {
+				sensorData.setAlert(false);
+			}
 		}else {
 			sensorData.setAlert(false);
 		}

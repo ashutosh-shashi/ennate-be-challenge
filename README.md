@@ -1,4 +1,7 @@
 
+#### Run mongo db on local and create database named egen to start. Collection name will be created as SensorData.
+#### use api url to configure in property so that sensor will use it.
+
 ### To create matric:
 
 #### POST http://localhost:8080/egencodechallange/matric/create
